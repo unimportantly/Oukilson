@@ -7,7 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 
 public class ToolsTest {
 
-
+//TODO factoriser les tests
+    //TODO vérifier l'utilité
     //Testing email verifier
     @Test
     @DisplayName("Test of email checker, valid argument.")

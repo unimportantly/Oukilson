@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 public class Tools {
 
+    //TODO ne pas renvoyer d'exceptions, renvoyer un "prédicat" -> vrai ou faux
     /**
      * method to check the validity of the email's format
      * @param emailAddress user's email
@@ -95,7 +96,7 @@ public class Tools {
      * @throws IllegalArgumentException if input is invalid
      */
     public static boolean checkValidEmailString(String string, int length) throws IllegalArgumentException{
-        boolean isValid = checkLength(string, length) && !checkBlanks(string);
+        boolean isValid = patternMatches(string) && checkLength(string, length) && !checkBlanks(string);
         return isValid;
     }
     /**
@@ -106,14 +107,12 @@ public class Tools {
      * @throws IllegalArgumentException if user is already on friend list
      */
     public static boolean onFriendList (User mainUser, User user){
-        boolean isFriend = false;
             for (int i = 0; i < mainUser.getFriendList().size(); i++) {
                 if (user.getNickname().equals(mainUser.getFriendList().get(i).getNickname())) {
-                    isFriend = true;
                     break;
                 }
             }
-        return isFriend;
+        return false;
     }
     /**
      * checks if user is already on denied list
@@ -123,14 +122,12 @@ public class Tools {
      * @throws IllegalArgumentException if user is already on denied list
      */
     public static boolean onDeniedList (User mainUser, User user){
-        boolean isDenied = false;
         for (int i = 0; i < mainUser.getDeniedList().size(); i++) {
             if (user.getNickname().equals(mainUser.getDeniedList().get(i).getNickname())) {
-                isDenied = true;
                 break;
             }
         }
-       return isDenied;
+       return false;
     }
 
     /**
@@ -141,7 +138,7 @@ public class Tools {
      * @throws IllegalArgumentException already on list
      */
     public static boolean isOnList( User mainUser, User user){
-        boolean isOnList = onDeniedList(mainUser, user) || onFriendList(mainUser, user);
+        boolean isOnList = onDeniedList(mainUser, user) && onFriendList(mainUser, user);
         return isOnList;
     }
 }

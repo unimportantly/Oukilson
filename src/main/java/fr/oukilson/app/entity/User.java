@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class User {
 
-    private int userId;
+    private String UID;
     private String password;
     private String firstName;
     private String lastName;
@@ -89,10 +89,10 @@ public class User {
      * @param userGameList user's owned games, stored in a list, can be null or many, no limit (total number of games)
      * @param userLikeList user's liked games, stored in a list, can be null or many, no limit (total number of games)
      */
-    public User(int userId, String password, String firstName, String lastName, String email, String nickname, Blob icon,
+    public User(String UID, String password, String firstName, String lastName, String email, String nickname, Blob icon,
                 List<Token> token, List<User> friendList, List<User> deniedList, List<Game> userGameList,
                 List<Game> userLikeList) {
-        this.userId = userId;
+        this.UID = UID;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -108,16 +108,27 @@ public class User {
 
 
     //methods
+
+    /**
+     * method to add a user-friend to main user's friend list
+     * @param user a user object to be added to the list
+     * @throws IllegalArgumentException if the user is already on the friend or denied list
+     */
     public void addUserToFriendList(User user) throws IllegalArgumentException{
         if(!Tools.isOnList(this, user)) {
             this.getFriendList().add(user);
         }
         else {
-            throw new IllegalArgumentException("user already friended");
+            throw new IllegalArgumentException("user already on a list");
         }
         this.setFriendList(this.getFriendList());
     }
 
+    /**
+     * method to add an unwanted user to main user's denied list
+     * @param user a user object to be added to the list
+     * @throws IllegalArgumentException if the user is already on the friend or denied list
+     */
     public void addUserToDeniedList(User user) throws IllegalArgumentException{
         if(!Tools.isOnList(this, user)) {
             this.getDeniedList().add(user);
@@ -128,6 +139,11 @@ public class User {
         this.setDeniedList(this.getDeniedList());
     }
 
+    /**
+     * method to remove a user from the friend list
+     * @param user a user object to be removed from the list
+     * @throws IllegalArgumentException if the user isn't on the list the main user wants to remove them from
+     */
     public void removeUserFromFriendList(User user) throws IllegalArgumentException{
         if(Tools.onFriendList(this, user)) {
             this.getFriendList().remove(user);
@@ -138,6 +154,11 @@ public class User {
         this.setFriendList(this.getFriendList());
     }
 
+    /**
+     * method to remove a user from the denied list
+     * @param user a user object to be removed from the list
+     * @throws IllegalArgumentException if the user isn't on the list the main user wants to remove them from
+     */
     public void removeUserFromDeniedList(User user) throws IllegalArgumentException{
         if(Tools.onDeniedList(this, user)) {
             this.getDeniedList().remove(user);
@@ -200,6 +221,7 @@ public class User {
         return firstName;
     }
 
+    //TODO gérer les exceptions quand le prédicat renvoie un 'faux'
     //TODO limit the different characters (1,%,^ etc) allowed to be in a first/last name
     /**
      * setter for a user's first name
