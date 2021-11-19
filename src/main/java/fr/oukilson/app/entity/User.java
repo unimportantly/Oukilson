@@ -76,7 +76,7 @@ public class User {
 
      /**
      * full (?) constructor
-     * @param userId PK
+     * @param UID PK
      * @param password encrypted, 40 chars long
      * @param firstName user's first name, 45 chars
      * @param lastName user's last name, 45 chars, increase to 100 in db
@@ -178,6 +178,7 @@ public class User {
         return nickname;
     }
 
+    //TODO minimum length?
     /**
      * setter for a user's nickname
      * @param nickname new user nickname
@@ -186,7 +187,7 @@ public class User {
      */
     public void setNickname(String nickname) throws IllegalArgumentException{
 
-    if (Tools.checkValidString(nickname, 45)) {
+    if (Tools.checkValidString(nickname, 45, 2)) {
             this.nickname = nickname;
         }
     }
@@ -208,7 +209,7 @@ public class User {
         if (!Tools.patternMatches(email)) {
             throw new IllegalArgumentException("email must be valid.");
         }
-        if (Tools.checkValidEmailString(email, 45)) {
+        if (Tools.checkValidEmailString(email, 45, 5)) {
             this.email = email;
         }
     }
@@ -221,6 +222,7 @@ public class User {
         return firstName;
     }
 
+    //TODO mettre les params en constantes (ie longueur nom/email etc)
     //TODO gérer les exceptions quand le prédicat renvoie un 'faux'
     //TODO limit the different characters (1,%,^ etc) allowed to be in a first/last name
     /**
@@ -231,7 +233,7 @@ public class User {
     public void setFirstName(String firstName) throws IllegalArgumentException{
 
         try {
-            Tools.checkValidString(firstName, 45);
+            Tools.checkValidString(firstName, 45, 1);
             Tools.checkDigits(firstName);
             this.firstName = firstName;
         }
@@ -273,7 +275,7 @@ public class User {
     public void setLastName(String lastName){
 
         try {
-            Tools.checkValidString(lastName, 45);
+            Tools.checkValidString(lastName, 45, 1);
             Tools.checkDigits(lastName);
             this.lastName = lastName;
         }

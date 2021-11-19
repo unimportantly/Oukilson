@@ -10,124 +10,115 @@ public class Tools {
      * @param emailAddress user's email
      * @return true if email is valid
      */
-    public static boolean patternMatches(String emailAddress) throws IllegalArgumentException{
+    public static boolean patternMatches(String emailAddress){
+        boolean isMatch = false;
         String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-       if (!Pattern.compile(regexPattern).matcher(emailAddress).matches()) {
-           throw new IllegalArgumentException("email address invalid.");
+       if (Pattern.compile(regexPattern).matcher(emailAddress).matches()) {
+           isMatch = true;
         }
-      return true;
+      return isMatch;
     }
 
     /**
      * checks if length of param is valid( 0 < param < 46)
      * @param string string input by user(names, emails, etc)
-     * @return valid string
-     * @throws IllegalArgumentException if string is of an invalid length
+     * @return validity of string
      */
-    public static boolean checkLength(String string, int length) throws IllegalArgumentException{
-        if (string.length() > length || string.length() <= 0) {
-            throw new IllegalArgumentException ("input must be of valid length.");
-        }
-        return true;
+    public static boolean checkLength(String string, int maxLength, int minLength){
+        boolean isValid = string.length() <= maxLength && string.length() >= minLength;
+        return isValid;
     }
 
     /**
      * Checks if user input contains blank spaces
      * @param string user's name
-     * @return true if the name has blanks and is thus invalid
-     * @throws IllegalArgumentException if string contains invalid blank spaces
+     * @return true if the name is valid
      */
-    public static boolean checkBlanks(String string) throws IllegalArgumentException{
-        if (string.contains(" ")){
-            throw new IllegalArgumentException("input must not contain any blank spaces.");
-        }
-        return false;
+    public static boolean checkBlanks(String string){
+        boolean isValid = !string.contains(" ");
+        return isValid;
     }
 
     /**
      * checks for special characters in user input
      * @param string user input
-     * @return true is the string doesn't contain any invalid special characters
-     * @throws IllegalArgumentException if the string contains special characters
+     * @return true if the string is valid
      */
-    public static boolean checkSpecialCharacters(String string) throws IllegalArgumentException{
+    public static boolean checkSpecialCharacters(String string){
         String regexPattern = "[`~!@#$%^&*()_+[\\\\]\\\\\\\\;\\',./{}|:\\\"<>?]";
-        if (Pattern.compile(regexPattern).matcher(string).find()) {
-            throw new IllegalArgumentException("input must not contain special characters");
-        }
-        return true;
+        boolean isValid = !Pattern.compile(regexPattern).matcher(string).find();
+        return isValid;
     }
 
     /**
      * checks if there are any illegal digits in the string
      * @param string user input
-     * @return true if string has digits
-     * @throws IllegalArgumentException if string has any illegal digits
+     * @return true if string is valid
      */
-    public static boolean checkDigits(String string) throws IllegalArgumentException {
+    public static boolean checkDigits(String string){
         String regexPattern = "[0-9]";
-        if (Pattern.compile(regexPattern).matcher(string).find()) {
-            throw new IllegalArgumentException("input must not contain digits");
-        }
-        return false;
+        boolean isValid = !Pattern.compile(regexPattern).matcher(string).find();
+        return isValid;
     }
 
 
     //TODO allow particles(Cecile De France)
 
     /**
-     * checks for string validity
-     * @param string user input
-     * @param length max length allowed for user input
-     * @return true if input is valid
-     * @throws IllegalArgumentException if input is invalid
+     * check overall validity of string
+     * @param string string to be checked
+     * @param maxLength max acceptable length of string (in database)
+     * @param minLength min acceptable length of string
+     * @return true if string is valid
      */
-    public static boolean checkValidString(String string, int length) throws IllegalArgumentException{
-        boolean isValid = checkLength(string, length) && !checkBlanks(string) && checkSpecialCharacters(string);
+    public static boolean checkValidString(String string, int maxLength, int minLength){
+        boolean isValid = checkLength(string, maxLength, minLength) && checkBlanks(string) && checkSpecialCharacters(string);
         return isValid;
     }
 
     /**
      * checks for string validity
      * @param string user input
-     * @param length max length allowed for user input
+     * @param maxLength max length allowed for user input
+     * @param minLength min acceptable length of string
      * @return true if input is valid
-     * @throws IllegalArgumentException if input is invalid
      */
-    public static boolean checkValidEmailString(String string, int length) throws IllegalArgumentException{
-        boolean isValid = patternMatches(string) && checkLength(string, length) && !checkBlanks(string);
+    public static boolean checkValidEmailString(String string, int maxLength, int minLength) throws IllegalArgumentException{
+        boolean isValid = patternMatches(string) && checkLength(string, maxLength, minLength) && checkBlanks(string);
         return isValid;
     }
     /**
      * checks if user is already on friend list
      * @param mainUser main user, trying to add a friend to list
-     * @param user potential friend
+     * @param otherUser potential friend
      * @return is already on friend list y/n
-     * @throws IllegalArgumentException if user is already on friend list
      */
-    public static boolean onFriendList (User mainUser, User user){
-            for (int i = 0; i < mainUser.getFriendList().size(); i++) {
-                if (user.getNickname().equals(mainUser.getFriendList().get(i).getNickname())) {
+    public static boolean onFriendList (User mainUser, User otherUser){
+        boolean isOnList = false;
+            for (User user : mainUser.getFriendList()) {
+                if (otherUser.getNickname().equals(user.getNickname())) {
+                    isOnList = true;
                     break;
                 }
             }
-        return false;
+        return isOnList;
     }
     /**
      * checks if user is already on denied list
      * @param mainUser main user, trying to add a denied to list
-     * @param user potential denied
+     * @param otherUser potential denied
      * @return is already on denied list y/n
-     * @throws IllegalArgumentException if user is already on denied list
      */
-    public static boolean onDeniedList (User mainUser, User user){
-        for (int i = 0; i < mainUser.getDeniedList().size(); i++) {
-            if (user.getNickname().equals(mainUser.getDeniedList().get(i).getNickname())) {
+    public static boolean onDeniedList (User mainUser, User otherUser){
+        boolean isOnList = false;
+        for (User user : mainUser.getDeniedList()) {
+            if (otherUser.getNickname().equals(user.getNickname())) {
+                isOnList = true;
                 break;
             }
         }
-       return false;
+       return isOnList;
     }
 
     /**

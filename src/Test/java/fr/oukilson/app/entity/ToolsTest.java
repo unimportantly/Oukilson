@@ -12,123 +12,137 @@ public class ToolsTest {
     //Testing email verifier
     @Test
     @DisplayName("Test of email checker, valid argument.")
-    public void testPatternMatchesNoException(){
+    public void testPatternMatchesTrue(){
         String email = "alphone.daudet@gmail.com";
         Assert.assertTrue(Tools.patternMatches(email));
     }
 
     @Test
     @DisplayName("Test of email checker, invalid argument.")
-    public void testPatternMatchesThrowsException(){
+    public void testPatternMatchesFalse(){
         String email = ".alphone.daudet@gmail.com";
-        Assertions.assertThrows(IllegalArgumentException.class, () ->
-                Tools.patternMatches(email));
+        Assertions.assertFalse(Tools.patternMatches(email));
     }
 
     //Testing length checking method
     @Test
     @DisplayName("Test of length checking method, valid argument.")
-    public void testCheckLengthNoException(){
+    public void testCheckLengthTrue(){
         String string = "test";
-        Assert.assertTrue(Tools.checkLength(string, 10));
+        Assert.assertTrue(Tools.checkLength(string, 10, 1));
     }
 
     @Test
-    @DisplayName("Test of length checking method, invalid(too long) argument.")
-    public void testCheckLengthTooLongException(){
+    @DisplayName("Test of length checking method, invalid arguments.")
+    public void testCheckLengthFalse(){
         String string = "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest";
-        int length = 0;
-        Assertions.assertThrows(IllegalArgumentException.class,() ->
-                Tools.checkLength(string, length));
+        int maxLength = 10;
+        int minLength = 1;
+        Assertions.assertFalse(Tools.checkLength(string, maxLength, minLength));
     }
 
     @Test
     @DisplayName("Test of length checking method, invalid(too short) argument.")
-    public void testCheckLengthTooShortException(){
+    public void testCheckLengthFalseToo(){
         String string = "";
-        Assertions.assertThrows(IllegalArgumentException.class,() ->
-                Tools.checkLength(string, 10));
+        Assertions.assertFalse(Tools.checkLength(string, 10,2));
+
     }
 
     //Testing blanks checking method
     @Test
     @DisplayName("Test of blank checking method, valid argument.")
-    public void testCheckBlanksNoException(){
+    public void testCheckBlanksTrue(){
         String string = "string";
-        Assert.assertFalse(Tools.checkBlanks(string));
+        Assert.assertTrue(Tools.checkBlanks(string));
     }
 
     @Test
     @DisplayName("Test of blank checking method, invalid(has blanks) argument.")
-    public void testCheckLengthHasBlanksException(){
+    public void testCheckBlanksFalse(){
         String string = "    aze";
-        Assertions.assertThrows(IllegalArgumentException.class,() ->
-                Tools.checkBlanks(string));
-    }
-
-    //Testing string validity method
-    @Test
-    @DisplayName("Test of validity checking method, valid arguments.")
-    public void testCheckValidStringNoException(){
-        String string = "test";
-        int length = 10;
-        Assert.assertTrue(Tools.checkValidString(string, length));
-    }
-
-    @Test
-    @DisplayName("Test of validity checking method, invalid arguments.")
-    public void testCheckValidStringIllegalArgumentException(){
-        String string = "test";
-        int length = 0;
-        Assertions.assertThrows(IllegalArgumentException.class,() ->
-                Tools.checkValidString(string, length));
+        Assertions.assertFalse(Tools.checkBlanks(string));
     }
 
     //Testing special character method
     @Test
     @DisplayName("Test of special characters checking method, valid arguments.")
-    public void testCheckSpecialCharactersNoException(){
+    public void testCheckSpecialTrue(){
         String string = "azomdkaozfkmao";
         Assert.assertTrue(Tools.checkSpecialCharacters(string));
     }
 
     @Test
     @DisplayName("Test of special characters checking method, invalid arguments.")
-    public void testCheckSpecialCharactersThrowsException(){
+    public void testCheckSpecialFalse(){
         String string = "%âzdoazm!!:";
-        Assertions.assertThrows(IllegalArgumentException.class, () ->
-                Tools.checkSpecialCharacters(string));
+        Assertions.assertFalse(Tools.checkSpecialCharacters(string));
     }
 
     //Testing digit checking method
     @Test
     @DisplayName("Test of digit checking method, valid arguments.")
-    public void testCheckDigitsNoException(){
+    public void testCheckDigitsTrue(){
         String string = "azdazdazdazd";
-        Assert.assertFalse(Tools.checkDigits(string));
+        Assert.assertTrue(Tools.checkDigits(string));
     }
 
     @Test
     @DisplayName("Test of digit checking method, invalid arguments.")
-    public void testCheckDigitsThrowsException(){
+    public void testCheckDigitsFalse(){
         String string = "addazdazd546584";
-        Assertions.assertThrows(IllegalArgumentException.class, () ->
-                Tools.checkDigits(string));
+        Assertions.assertFalse(Tools.checkDigits(string));
     }
 
+    //Testing string validity method
+    @Test
+    @DisplayName("Test of validity checking method, valid arguments.")
+    public void testCheckValidStringTrue(){
+        String string = "test";
+        int maxLength = 10;
+        int minLength = 1;
+        Assert.assertTrue(Tools.checkValidString(string, maxLength, minLength));
+    }
 
+    @Test
+    @DisplayName("Test of validity checking method, invalid arguments.")
+    public void testCheckValidStringFalse(){
+        String string = "azdazd!!;";
+        int maxLength = 10;
+        int minLength = 2;
+        Assertions.assertFalse(Tools.checkValidString(string, maxLength, minLength));
+    }
+
+    //Testing email validity method
+    @Test
+    @DisplayName("Test of email validity checking method, valid arguments.")
+    public void testCheckValidEmailStringTrue(){
+        String email = "moakzd@email.com";
+        int maxLength = 45;
+        int minLength = 5;
+        Assertions.assertTrue(Tools.checkValidEmailString(email, maxLength, minLength));
+    }
+
+    @Test
+    @DisplayName("Test of email validity checking method, invalid arguments.")
+    public void testCheckValidEmailStringFalse(){
+        String email = ".moakzd@email.com";
+        int maxLength = 45;
+        int minLength = 5;
+        Assertions.assertFalse(Tools.checkValidEmailString(email, maxLength, minLength));
+    }
     //Testing friend list check
     @Test
     @DisplayName("Test of friend list checking method, valid arguments.")
-    public void testOnFriendListNoException(){
+    public void testOnFriendListFalse(){
         User mainUser = new User("marco","marco@hotmail.com", "marc", "paul");
         User user = new User("polo", "polo@hotmail.com");
         Assertions.assertFalse(Tools.onFriendList(mainUser, user));
     }
 
     @Test
-    @DisplayName("Test of friend list checking method, invalid argument.")
-    public void testOnFriendListIllegalArgumentException(){
+    @DisplayName("Test of friend list checking method, valid argument.")
+    public void testOnFriendListTrue(){
         User mainUser = new User("marco","marco@hotmail.com", "marc", "paul");
         User user = new User("polo", "polo@hotmail.com");
         mainUser.getFriendList().add(user);
@@ -137,15 +151,15 @@ public class ToolsTest {
 
     @Test
     @DisplayName("Test of denied list checking method, valid arguments.")
-    public void testOnDeniedListNoException(){
+    public void testOnDeniedListFalse(){
         User mainUser = new User("marco","marco@hotmail.com", "marc", "paul");
         User user = new User("polo", "polo@hotmail.com");
         Assertions.assertFalse(Tools.onDeniedList(mainUser, user));
     }
 
     @Test
-    @DisplayName("Test of denied list checking method, invalid arguments.")
-    public void testOnDeniedListIllegalArgumentException(){
+    @DisplayName("Test of denied list checking method, valid arguments.")
+    public void testOnDeniedListTrue(){
         User mainUser = new User("marco","marco@hotmail.com", "marc", "paul");
         User user = new User("polo", "polo@hotmail.com");
         mainUser.getDeniedList().add(user);
@@ -155,7 +169,7 @@ public class ToolsTest {
     //Testing isOnList method
     @Test
     @DisplayName("Test of isOnList method, valid arguments.")
-    public void testIsOnListNoException(){
+    public void testIsOnListFalse(){
         User mainUser = new User("marco","marco@hotmail.com", "marc", "paul");
         User user = new User("polo", "polo@hotmail.com");
         Assertions.assertFalse(Tools.isOnList(mainUser, user));
