@@ -122,6 +122,39 @@ public class Tools {
     }
 
     /**
+     * checks if a game is already on liked list
+     * @param mainUser main user, trying to add a game to list
+     * @param likedGame potential liked game
+     * @return is already on liked list y/n
+     */
+    public static boolean onLikedList (User mainUser, Game likedGame){
+        boolean isOnList = false;
+        for (Game game : mainUser.getUserLikeList()) {
+            if (game.getName().equals(likedGame.getName())) {
+                isOnList = true;
+                break;
+            }
+        }
+        return isOnList;
+    }
+
+    /**
+     * checks if a game is already on owned list
+     * @param mainUser main user, trying to add a game to list
+     * @param ownedGame potential owned game
+     * @return is already on owned list y/n
+     */
+    public static boolean onOwnedList (User mainUser, Game ownedGame){
+        boolean isOnList = false;
+        for (Game game : mainUser.getUserLikeList()) {
+            if (game.getName().equals(ownedGame.getName())) {
+                isOnList = true;
+                break;
+            }
+        }
+        return isOnList;
+    }
+    /**
      * check if user is on list
      * @param mainUser list owner
      * @param user potentially on list
@@ -129,7 +162,7 @@ public class Tools {
      * @throws IllegalArgumentException already on list
      */
     public static boolean isOnList( User mainUser, User user){
-        boolean isOnList = onDeniedList(mainUser, user) && onFriendList(mainUser, user);
+        boolean isOnList = onDeniedList(mainUser, user) || onFriendList(mainUser, user);
         return isOnList;
     }
 }

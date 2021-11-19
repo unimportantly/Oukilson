@@ -174,4 +174,13 @@ public class ToolsTest {
         User user = new User("polo", "polo@hotmail.com");
         Assertions.assertFalse(Tools.isOnList(mainUser, user));
     }
+
+    @Test
+    @DisplayName("Test of isOnList method, valid arguments.")
+    public void testIsOnListTrue(){
+        User mainUser = new User("marco","marco@hotmail.com", "marc", "paul");
+        User user = new User("polo", "polo@hotmail.com");
+        mainUser.getDeniedList().add(user);
+        Assertions.assertTrue(Tools.isOnList(mainUser, user));
+    }
 }

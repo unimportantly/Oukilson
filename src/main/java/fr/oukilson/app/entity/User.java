@@ -3,7 +3,6 @@ package fr.oukilson.app.entity;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class User {
 
@@ -19,6 +18,8 @@ public class User {
     private List<User> deniedList;
     private List<Game> userGameList;
     private List<Game> userLikeList;
+    private final int maxLength = 45;
+    private final int minLength = 1;
     /**
      * empty constructor
      */
@@ -108,7 +109,6 @@ public class User {
 
 
     //methods
-
     /**
      * method to add a user-friend to main user's friend list
      * @param user a user object to be added to the list
@@ -168,8 +168,8 @@ public class User {
         }
         this.setDeniedList(this.getDeniedList());
     }
-    //g&s
 
+    //g&s
     /**
      * getter for user's nickname
      * @return user's nickname
@@ -178,14 +178,12 @@ public class User {
         return nickname;
     }
 
-    //TODO minimum length?
+
     /**
      * setter for a user's nickname
      * @param nickname new user nickname
-     * @throws IllegalArgumentException returns an exception if the new nickname is too short, too long
-     * or generally invalid
      */
-    public void setNickname(String nickname) throws IllegalArgumentException{
+    public void setNickname(String nickname){
 
     if (Tools.checkValidString(nickname, 45, 2)) {
             this.nickname = nickname;
@@ -203,13 +201,12 @@ public class User {
     /**
      * setter for a user's email
      * @param email user's new email
-     * @throws IllegalArgumentException returns exception if input is too long, too short or invalid
      */
     public void setEmail(String email) throws IllegalArgumentException{
         if (!Tools.patternMatches(email)) {
             throw new IllegalArgumentException("email must be valid.");
         }
-        if (Tools.checkValidEmailString(email, 45, 5)) {
+        if (Tools.checkValidEmailString(email, maxLength, minLength)) {
             this.email = email;
         }
     }
@@ -222,9 +219,6 @@ public class User {
         return firstName;
     }
 
-    //TODO mettre les params en constantes (ie longueur nom/email etc)
-    //TODO gérer les exceptions quand le prédicat renvoie un 'faux'
-    //TODO limit the different characters (1,%,^ etc) allowed to be in a first/last name
     /**
      * setter for a user's first name
      * @param firstName a user's new first name
@@ -232,31 +226,15 @@ public class User {
      */
     public void setFirstName(String firstName) throws IllegalArgumentException{
 
-        try {
-            Tools.checkValidString(firstName, 45, 1);
-            Tools.checkDigits(firstName);
+        if (Tools.checkValidString(firstName, maxLength, minLength) && Tools.checkDigits(firstName)) {
             this.firstName = firstName;
         }
-        catch (IllegalArgumentException e) {
-            switch (e.getMessage()) {
-                case "input must be of valid length.":
-                    System.out.println("valid length");
-                    break;
-                case "input must not contain any blank spaces.":
-                    System.out.println("blank spaces");
-                    break;
-                case "input must not contain special characters":
-                    System.out.println("special characters");
-                    break;
-                case "input must not contain digits":
-                    System.out.println("digits");
-                    break;
-                default:
-                    System.out.println("unknown error, run!!!");
-            }
+        else {
+            throw new IllegalArgumentException("input is invalid");
         }
-
     }
+
+
 
     /**
      * getter for user's last name
@@ -266,39 +244,21 @@ public class User {
         return lastName;
     }
 
-    //TODO clean all unnecessary exceptions
     /**
      * setter for a user's last name
      * @param lastName user's new last name(congrats on the wedding/divorce i guess)
      * @throws IllegalArgumentException if new name is too long, too short, or generally invalid
      */
-    public void setLastName(String lastName){
+    public void setLastName(String lastName) throws IllegalArgumentException{
 
-        try {
-            Tools.checkValidString(lastName, 45, 1);
-            Tools.checkDigits(lastName);
+        if (Tools.checkValidString(lastName, maxLength, minLength) && Tools.checkDigits(lastName)) {
             this.lastName = lastName;
         }
-        catch (IllegalArgumentException e) {
-           switch (e.getMessage()) {
-               case "input must be of valid length.":
-                   System.out.println("valid length");
-                   break;
-               case "input must not contain any blank spaces.":
-                   System.out.println("blank spaces");
-                   break;
-               case "input must not contain special characters":
-                   System.out.println("special characters");
-                   break;
-               case "input must not contain digits":
-                   System.out.println("digits");
-                   break;
-               default:
-                   System.out.println("unknown error, run!!!");
-           }
+        else {
+            throw new IllegalArgumentException("input is invalid");
         }
-
     }
+
     /**
      * getter for a user's friend list
      * @return a user's friend list
@@ -315,11 +275,36 @@ public class User {
         this.friendList = friendList;
     }
 
+    /**
+     * get a user's denied list
+     * @return a denied list object
+     */
     public List<User> getDeniedList() {
         return deniedList;
     }
 
+    /**
+     * set a denied list object
+     * @param deniedList new object to replace the existing one
+     */
     public void setDeniedList(List<User> deniedList) {
         this.deniedList = deniedList;
+    }
+
+
+    public List<Game> getUserGameList() {
+        return userGameList;
+    }
+
+    public void setUserGameList(List<Game> userGameList) {
+        this.userGameList = userGameList;
+    }
+
+    public List<Game> getUserLikeList() {
+        return userLikeList;
+    }
+
+    public void setUserLikeList(List<Game> userLikeList) {
+        this.userLikeList = userLikeList;
     }
 }
