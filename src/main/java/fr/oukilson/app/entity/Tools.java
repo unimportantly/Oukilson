@@ -146,7 +146,7 @@ public class Tools {
      */
     public static boolean onOwnedList (User mainUser, Game ownedGame){
         boolean isOnList = false;
-        for (Game game : mainUser.getUserLikeList()) {
+        for (Game game : mainUser.getUserGameList()) {
             if (game.getName().equals(ownedGame.getName())) {
                 isOnList = true;
                 break;
@@ -164,5 +164,15 @@ public class Tools {
     public static boolean isOnList( User mainUser, User user){
         boolean isOnList = onDeniedList(mainUser, user) || onFriendList(mainUser, user);
         return isOnList;
+    }
+
+    /**
+     * checks if a game is already on the user's lists
+     * @param mainUser user whose lists we are checking
+     * @param game game the user wishes to add to his list
+     * @return true if the game is already on a list, false if not
+     */
+    public static boolean isOnGameList(User mainUser, Game game) {
+        return onLikedList(mainUser, game) || onOwnedList(mainUser, game);
     }
 }

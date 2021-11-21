@@ -33,6 +33,10 @@ public class User {
      */
     public User(String nickname) throws IllegalArgumentException{
         this.setNickname(nickname);
+        this.friendList = new ArrayList<>();
+        this.deniedList = new ArrayList<>();
+        this.userGameList = new ArrayList<>();
+        this.userLikeList = new ArrayList<>();
     }
 
     /**
@@ -44,6 +48,10 @@ public class User {
     public User(String nickname,String email) throws IllegalArgumentException{
         this(nickname);
         this.setEmail(email);
+        this.friendList = new ArrayList<>();
+        this.deniedList = new ArrayList<>();
+        this.userGameList = new ArrayList<>();
+        this.userLikeList = new ArrayList<>();
     }
 
     /**
@@ -56,6 +64,10 @@ public class User {
     public User(String nickname, String email, String firstName) throws IllegalArgumentException{
         this(nickname, email);
         this.setFirstName(firstName);
+        this.friendList = new ArrayList<>();
+        this.deniedList = new ArrayList<>();
+        this.userGameList = new ArrayList<>();
+        this.userLikeList = new ArrayList<>();
     }
 
     /**
@@ -69,44 +81,11 @@ public class User {
     public User(String nickname, String email, String firstName, String lastName) throws IllegalArgumentException{
         this(nickname, email, firstName);
         this.setLastName(lastName);
-        this.friendList = new ArrayList<User>();
-        this.deniedList = new ArrayList<User>();
-        this.userGameList = new ArrayList<Game>();
-        this.userLikeList = new ArrayList<Game>();
+        this.friendList = new ArrayList<>();
+        this.deniedList = new ArrayList<>();
+        this.userGameList = new ArrayList<>();
+        this.userLikeList = new ArrayList<>();
     }
-
-     /**
-     * full (?) constructor
-     * @param UID PK
-     * @param password encrypted, 40 chars long
-     * @param firstName user's first name, 45 chars
-     * @param lastName user's last name, 45 chars, increase to 100 in db
-     * @param email user's email, 45 chars, increase to 100 in db
-     * @param nickname user's nickname, 45 chars
-     * @param icon user icon, can be a default, size limit?
-     * @param token user's token, stored in a list, can be null or many, no limit (total number of tokens)
-     * @param friendList user's friends, have privileged access to events, can be null, no limit (total number of users)
-     * @param deniedList user's pick of people they don't want to associate with, can be null, no limit (total number of users)
-     * @param userGameList user's owned games, stored in a list, can be null or many, no limit (total number of games)
-     * @param userLikeList user's liked games, stored in a list, can be null or many, no limit (total number of games)
-     */
-    public User(String UID, String password, String firstName, String lastName, String email, String nickname, Blob icon,
-                List<Token> token, List<User> friendList, List<User> deniedList, List<Game> userGameList,
-                List<Game> userLikeList) {
-        this.UID = UID;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.nickname = nickname;
-        this.icon = icon;
-        this.token = token;
-        this.friendList = friendList;
-        this.deniedList = deniedList;
-        this.userGameList = userGameList;
-        this.userLikeList = userLikeList;
-    }
-
 
     //methods
     /**
@@ -291,19 +270,34 @@ public class User {
         this.deniedList = deniedList;
     }
 
-
+    /**
+     * get a user's owned game list
+     * @return the list of objects
+     */
     public List<Game> getUserGameList() {
         return userGameList;
     }
 
+    /**
+     * set a list of owned game objects for this user
+     * @param userGameList list of objects to set
+     */
     public void setUserGameList(List<Game> userGameList) {
         this.userGameList = userGameList;
     }
 
+    /**
+     * get a user's liked game list
+     * @return a list of liked games objects for the user
+     */
     public List<Game> getUserLikeList() {
         return userLikeList;
     }
 
+    /**
+     * set a list of liked games objects for this user
+     * @param userLikeList the list of objects to set
+     */
     public void setUserLikeList(List<Game> userLikeList) {
         this.userLikeList = userLikeList;
     }

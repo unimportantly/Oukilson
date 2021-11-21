@@ -6,18 +6,6 @@ import org.junit.jupiter.api.Test;
 
 public class UserTest {
 
-//    public User(int userId, String password, String firstName, String lastName, String email, String nickname,
-//                Image icon, List<Token> token, List<User> friendList, List<User> deniedList, List<Game> userGameList,
-//                List<Game> userLikeList) {
-
-
-    //Testing nickname setters
-
-
-    //Test nickname-only constructors
-    //TODO check if this isn't pointless
-
-
     //Tests of nickname getter
     @Test
     @DisplayName("Test of nickname getter with a valid argument.")
@@ -27,10 +15,6 @@ public class UserTest {
         Assertions.assertEquals(user.getNickname(), "Marc");
     }
 
-    //Test of nickname & email setter
-
-    //test of email & nickname constructor
-
     //testing email getter
     @Test
     @DisplayName("Test of email getter with a valid argument.")
@@ -39,12 +23,6 @@ public class UserTest {
         Assertions.assertEquals(user.getEmail(), "marc@hotmail.com");
     }
 
-    //testing first name setter //TODO test the try/catch
-
-
-    //testing first name constructor
-
-
     //Testing first name getter
     @Test
     @DisplayName("Test of first getter with a valid argument.")
@@ -52,11 +30,6 @@ public class UserTest {
         User user = new User("Marc", "marc@hotmail.com", "marcooooo");
         Assertions.assertEquals(user.getFirstName(), "marcooooo");
     }
-
-    //Testing last name setter //TODO test the try/catch
-
-
-    //testing last name constructor
 
     //Testing last name getter
     @Test

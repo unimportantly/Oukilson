@@ -183,4 +183,57 @@ public class ToolsTest {
         mainUser.getDeniedList().add(user);
         Assertions.assertTrue(Tools.isOnList(mainUser, user));
     }
+
+    //Testing game lists methods
+    @Test
+    @DisplayName("Testing onLikedList method, valid arguments.")
+    public void testOnLikedListFalse(){
+        User mainUser = new User("marco", "marco@email.com", "marc", "paul");
+        Game game = new Game("jean");
+        Assertions.assertFalse(Tools.onLikedList(mainUser, game));
+    }
+
+    @Test
+    @DisplayName("Testing onLikedList method, valid arguments.")
+    public void testOnLikedListTrue(){
+        User mainUser = new User("marco", "marco@email.com", "marc", "paul");
+        Game game = new Game("jean");
+        mainUser.getUserLikeList().add(game);
+        Assertions.assertTrue(Tools.onLikedList(mainUser, game));
+    }
+
+    @Test
+    @DisplayName("Testing onOwnedList method, valid arguments.")
+    public void testOnOwnedListFalse(){
+        User mainUser = new User("marco", "marco@email.com", "marc", "paul");
+        Game game = new Game("jean");
+        Assertions.assertFalse(Tools.onOwnedList(mainUser, game));
+    }
+
+    @Test
+    @DisplayName("Testing onLikedList method, valid arguments.")
+    public void testOnOwnedListTrue(){
+        User mainUser = new User("marco", "marco@email.com", "marc", "paul");
+        Game game = new Game("jean");
+        mainUser.getUserGameList().add(game);
+        Assertions.assertTrue(Tools.onOwnedList(mainUser, game));
+    }
+
+    //Testing isOnGameList method
+    @Test
+    @DisplayName("Test of isOnGameList method, valid arguments.")
+    public void testIsOnGameListFalse(){
+        User mainUser = new User("marco","marco@hotmail.com", "marc", "paul");
+        Game game = new Game("polo");
+        Assertions.assertFalse(Tools.isOnGameList(mainUser, game));
+    }
+
+    @Test
+    @DisplayName("Test of isOnList method, valid arguments.")
+    public void testIsOnGameListTrue() {
+        User mainUser = new User("marco", "marco@hotmail.com", "marc", "paul");
+        Game game = new Game("polo");
+        mainUser.getUserGameList().add(game);
+        Assertions.assertTrue(Tools.isOnGameList(mainUser, game));
+    }
 }
