@@ -99,7 +99,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Test of removeUserToFriendList method, valid argument.")
+    @DisplayName("Test of removeUserFromFriendList method, valid argument.")
     public void testRemoveUserToFriendListNoException(){
         User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
         User user = new User("jean", "jean@gmail.com");
@@ -111,7 +111,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Test of removeUserToFriendList method, invalid argument.")
+    @DisplayName("Test of removeUserFromFriendList method, invalid argument.")
     public void testRemoveUserToFriendListIllegalArgumentException(){
         User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
         User user = new User("jean", "jean@gmail.com");
@@ -120,7 +120,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Test of removeUserToDeniedList method, valid argument.")
+    @DisplayName("Test of removeUserFromDeniedList method, valid argument.")
     public void testRemoveUserToDeniedListNoException(){
         User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
         User user = new User("jean", "jean@gmail.com");
@@ -132,11 +132,94 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Test of removeUserToDeniedList method, invalid argument.")
-    public void testRemovedUserToDeniedListIllegalArgumentException(){
+    @DisplayName("Test of removeUserFromDeniedList method, invalid argument.")
+    public void testRemovedUserFromDeniedListIllegalArgumentException(){
         User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
         User user = new User("jean", "jean@gmail.com");
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 mainUser.removeUserFromDeniedList(user));
     }
+
+    @Test
+    @DisplayName("Test of addGameToOwnedGameList method, valid argument.")
+    public void testAddGameToOwnedGameListNoException(){
+        User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
+        Game game = new Game("jean");
+        mainUser.addGameToOwnedGameList(game);
+        Assertions.assertEquals(mainUser.getUserGameList().get(0).getName(), game.getName());
+    }
+
+    @Test
+    @DisplayName("Test of addGameToOwnedGameList method, invalid argument.")
+    public void testAddGameToOwnedGameListIllegalArgumentException(){
+        User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
+        Game game = new Game("jean");
+        mainUser.addGameToOwnedGameList(game);
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                mainUser.addGameToOwnedGameList(game));
+    }
+
+    @Test
+    @DisplayName("Test of removeGameFromOwnedGameList method, valid argument.")
+    public void testRemoveGameFromOwnedGameListNoException(){
+        User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
+        Game game = new Game("jean");
+        Game otherGame = new Game("marc");
+        mainUser.addGameToOwnedGameList(game);
+        mainUser.removeGameFromOwnedGameList(game);
+        mainUser.addGameToOwnedGameList(otherGame);
+        Assertions.assertEquals(mainUser.getUserGameList().get(0),otherGame);
+    }
+
+    @Test
+    @DisplayName("Test of removeGameFromOwnedGameList method, invalid argument.")
+    public void testRemoveGameFromOwnedGameListIllegalArgumentException(){
+        User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
+        Game game = new Game("jean");
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                mainUser.removeGameFromOwnedGameList(game));
+    }
+
+
+    @Test
+    @DisplayName("Test of addGameToLikedGameList method, valid argument.")
+    public void testAddGameToLikedGameListNoException(){
+        User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
+        Game game = new Game("jean");
+        mainUser.addGameToLikedGameList(game);
+        Assertions.assertEquals(mainUser.getUserLikeList().get(0).getName(), game.getName());
+    }
+
+    @Test
+    @DisplayName("Test of addGameToLikedGameList method, invalid argument.")
+    public void testAddGameToLikedGameListIllegalArgumentException(){
+        User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
+        Game game = new Game("jean");
+        mainUser.addGameToLikedGameList(game);
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                mainUser.addGameToLikedGameList(game));
+    }
+
+    @Test
+    @DisplayName("Test of removeGameFromLikedGameList method, valid argument.")
+    public void testRemoveGameFromLikedGameListNoException(){
+        User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
+        Game game = new Game("jean");
+        Game otherGame = new Game("marc");
+        mainUser.addGameToLikedGameList(game);
+        mainUser.removeGameFromLikedGameList(game);
+        mainUser.addGameToLikedGameList(otherGame);
+        Assertions.assertEquals(mainUser.getUserLikeList().get(0),otherGame);
+    }
+
+    @Test
+    @DisplayName("Test of removeGameFromLikedGameList method, invalid argument.")
+    public void testRemoveGameFromLikedGameListIllegalArgumentException(){
+        User mainUser = new User ("Marc", "marc@hotmail.com", "marcooooo", "Penaud");
+        Game game = new Game("jean");
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                mainUser.removeGameFromLikedGameList(game));
+    }
 }
+
+

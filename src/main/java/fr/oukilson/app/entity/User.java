@@ -113,9 +113,39 @@ public class User {
             this.getDeniedList().add(user);
         }
         else {
-            throw new IllegalArgumentException("user already denied");
+            throw new IllegalArgumentException("user already on list");
         }
         this.setDeniedList(this.getDeniedList());
+    }
+
+    /**
+     * method to add a game to a user's owned game list
+     * @param game to add to the list
+     * @throws IllegalArgumentException if the game's already on the list
+     */
+    public void addGameToOwnedGameList(Game game) throws IllegalArgumentException{
+        if(!Tools.onOwnedList(this, game)) {
+            this.getUserGameList().add(game);
+        }
+        else {
+            throw new IllegalArgumentException("you own that game already");
+        }
+        this.setUserGameList(this.getUserGameList());
+    }
+
+    /**
+     * method to add a game to a user's liked game list
+     * @param game to add to the list
+     * @throws IllegalArgumentException if the game's already on the list
+     */
+    public void addGameToLikedGameList(Game game) throws IllegalArgumentException{
+        if(!Tools.onLikedList(this, game)) {
+            this.getUserLikeList().add(game);
+        }
+        else {
+            throw new IllegalArgumentException("you like that game already");
+        }
+        this.setUserLikeList(this.getUserLikeList());
     }
 
     /**
@@ -148,6 +178,36 @@ public class User {
         this.setDeniedList(this.getDeniedList());
     }
 
+    /**
+     * Method to remove a game from a user's owned game list
+     * @param game game to remove from the list
+     * @throws IllegalArgumentException if game isn't on the list
+     */
+    public void removeGameFromOwnedGameList(Game game) throws IllegalArgumentException{
+        if(Tools.onOwnedList(this, game)) {
+            this.getUserGameList().remove(game);
+        }
+        else {
+            throw new IllegalArgumentException("game is not on list.");
+        }
+        this.setUserGameList(this.getUserGameList());
+    }
+
+    /**
+     * Method to remove a game from a user's liked game list
+     * @param game game to remove from the list
+     * @throws IllegalArgumentException if game isn't on the list
+     */
+    public void removeGameFromLikedGameList(Game game) throws IllegalArgumentException{
+        if(Tools.onLikedList(this, game)) {
+            this.getUserLikeList().remove(game);
+        }
+        else {
+            throw new IllegalArgumentException("game is not on list.");
+        }
+        this.setUserLikeList(this.getUserLikeList());
+    }
+
     //g&s
     /**
      * getter for user's nickname
@@ -156,7 +216,6 @@ public class User {
     public String getNickname() {
         return nickname;
     }
-
 
     /**
      * setter for a user's nickname
@@ -212,8 +271,6 @@ public class User {
             throw new IllegalArgumentException("input is invalid");
         }
     }
-
-
 
     /**
      * getter for user's last name
