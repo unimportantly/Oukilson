@@ -1,11 +1,13 @@
 package fr.oukilson.app.entity;
 
+import org.junit.jupiter.api.Test;
+
 public class LocationTest {
 
 
     //Testing for invalid addresses
         //Valid format + valid input
-            //Valid input in the proper fields
+            //Valid input in all the proper fields
         //Invalid format + valid input
             //Incomplete address(test all fields)
         //Valid format + invalid input

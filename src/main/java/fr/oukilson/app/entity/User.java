@@ -7,6 +7,7 @@ import java.util.List;
 public class User {
 
     private String UID;
+    private int ID;
     private String password;
     private String firstName;
     private String lastName;
@@ -14,6 +15,12 @@ public class User {
     private String nickname; //TODO test unicité du nickname
     private Blob icon;
     private List<Token> token;
+    /*
+    if needs to be ordered we use a list because it has methods(?) to get first & last
+    so it's good if we also just need to get a FIFO(PAPS)
+    otherwise using a hashmap is better because it's faster (don't need to run through the
+    entire list and then compare with the object, just compare with the key)
+     */
     private List<User> friendList;
     private List<User> deniedList;
     private List<Game> userGameList;

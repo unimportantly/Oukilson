@@ -63,8 +63,21 @@ public class Tools {
     }
 
 
-    //TODO allow particles(Cecile De France)
+/*
+TODO unify all regex to compare to input(get a regex for the email(incl length & all) & another one for other strings
+while putting the compile/matcher/find in another function
+ */
 
+    /**
+     * compares a string of characters to a given regex and returns matching status
+     * @param regex string of characters that define the accepted or *not* accepted list of chars
+     * @param string string of characters we wish to check the individual characters of
+     * @return true if the string is valid(conform to the regex), false if it isn't
+     */
+    public static boolean checkRegex(String regex, String string){
+        boolean isValid = Pattern.compile(regex).matcher(string).find();
+        return isValid;
+    }
     /**
      * check overall validity of string
      * @param string string to be checked
