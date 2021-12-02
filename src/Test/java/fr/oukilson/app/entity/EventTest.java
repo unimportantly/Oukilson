@@ -171,5 +171,96 @@ public class EventTest {
         Assertions.assertNull(event.getUserFromEventWaitingQueue(user.getUUID()));
     }
 
-    
+    // testing function to add a user to an event(valid(user in, true), false)
+    @Test
+    @DisplayName("Testing the function to add a user to an event, valid argument, true")
+    public void testAddUserInEventTrue(){
+        long millis = System.currentTimeMillis();
+        Date creationDate = new Date((long) (millis * 0.98));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
+        User user = new User("Jean");
+        Assertions.assertTrue(event.addUserInEvent(user));
+    }
+
+    @Test
+    @DisplayName("Testing the function to add a user to an event, valid argument, user in")
+    public void testAddUserInEventUserIn(){
+        long millis = System.currentTimeMillis();
+        Date creationDate = new Date((long) (millis * 0.98));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
+        User user = new User("Jean");
+        event.addUserInEvent(user);
+        Assertions.assertEquals(event.getRegisteredUsers().get(user.getUUID()), user);
+    }
+
+    @Test
+    @DisplayName("Testing the function to add a user to an event, invalid argument, false")
+    public void testAddUserInEventFalse() {
+        long millis = System.currentTimeMillis();
+        Date creationDate = new Date((long) (millis * 0.98));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
+        User user = new User("Jean");
+        User user2 = new User("Jean");
+        User user3 = new User("Jean");
+        User user4 = new User("Jean");
+        User user5 = new User("Jean");
+        User user6 = new User("Jean");
+        event.addUserInEvent(user);
+        event.addUserInEvent(user2);
+        event.addUserInEvent(user3);
+        event.addUserInEvent(user4);
+        event.addUserInEvent(user5);
+        Assertions.assertFalse(event.addUserInEvent(user6));
+    }
+
+    // testing function to remove a user from an event(valid(user removed), invalid(user not in queue))
+    @Test
+    @DisplayName("Testing the function to remove a user from an event, valid argument, user removed")
+    public void testRemoveUserInEvent(){
+        long millis = System.currentTimeMillis();
+        Date creationDate = new Date((long) (millis * 0.98));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
+        User user = new User("Jean");
+        event.addUserInEvent(user);
+        Assertions.assertTrue(event.removeUserInEvent(user.getUUID()));
+    }
+
+    @Test
+    @DisplayName("Testing the function to remove a user from an event, valid argument, user not in queue")
+    public void testRemoveUserInEventNull(){
+        long millis = System.currentTimeMillis();
+        Date creationDate = new Date((long) (millis * 0.98));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
+        User user = new User("Jean");
+        Assertions.assertNull(event.removeUserInEvent(user.getUUID()));
+    }
+
+    // testing the function to get a user from an event(valid(user in event), invalid(user not in event))
+    @Test
+    @DisplayName("Testing the function to get a user from an event, valid argument, user removed")
+    public void testGetUserFromEvent(){
+        long millis = System.currentTimeMillis();
+        Date creationDate = new Date((long) (millis * 0.98));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
+        User user = new User("Jean");
+        event.addUserInEvent(user);
+        Assertions.assertTrue(event.getUserFromEvent(user.getUUID()), user);
+    }
+
+    @Test
+    @DisplayName("Testing the function to get a user from an event, valid argument, user not in queue")
+    public void testGetUserFromEvent(){
+        long millis = System.currentTimeMillis();
+        Date creationDate = new Date((long) (millis * 0.98));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
+        User user = new User("Jean");
+        Assertions.assertNull(event.getUserFromEvent(user.getUUID()));
+    }
 }
