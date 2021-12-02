@@ -288,4 +288,63 @@ public class EventTest {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 event.setDescription(description));
     }
+
+    // testing the setter for the start & end date of an event(valid(start before & equals to end), invalid(start after)
+    @Test
+    @DisplayName("Testing the setter for an event's starting and ending dates, valid arguments, start before end")
+    public void testStartAndEndDateStartingDate(){
+        long millis = System.currentTimeMillis();
+        Date endingDate = new Date((long) (millis * 1.02));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1");
+        event.setStartAndEndDate(startingDate, endingDate);
+        Assertions.assertEquals(event.getStartingDate(), startingDate);
+    }
+
+    @Test
+    @DisplayName("Testing the setter for an event's starting and ending dates, valid arguments, start before end")
+    public void testStartAndEndDateEndingDate(){
+        long millis = System.currentTimeMillis();
+        Date endingDate = new Date((long) (millis * 1.02));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1");
+        event.setStartAndEndDate(startingDate, endingDate);
+        Assertions.assertEquals(event.getEndingDate(), endingDate);
+    }
+
+    @Test
+    @DisplayName("Testing the setter for an event's starting and ending dates, valid arguments, start before end")
+    public void testStartAndEndDateStartingDateEquals(){
+        long millis = System.currentTimeMillis();
+        Date endingDate = new Date(millis);
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1");
+        event.setStartAndEndDate(startingDate, endingDate);
+        Assertions.assertEquals(event.getStartingDate(), startingDate);
+    }
+
+    @Test
+    @DisplayName("Testing the setter for an event's starting and ending dates, valid arguments, start before end")
+    public void testStartAndEndDateEndingDateEquals(){
+        long millis = System.currentTimeMillis();
+        Date endingDate = new Date(millis);
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1");
+        event.setStartAndEndDate(startingDate, endingDate);
+        Assertions.assertEquals(event.getEndingDate(), endingDate);
+    }
+
+    @Test
+    @DisplayName("Testing the setter for an event's starting and ending dates, invalid arguments, start after end")
+    public void testStartAndEndDateEndingIllegalArgumentException(){
+        long millis = System.currentTimeMillis();
+        Date endingDate = new Date(millis);
+        Date startingDate = new Date((long) (millis * 1.02));
+        Event event = new Event("Event 1");
+        event.setStartAndEndDate(startingDate, endingDate);
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                event.setStartAndEndDate(startingDate, endingDate));
+    }
+
+    // isn't testing the setstartdate pointless? also, what's the point of its existence?
 }
