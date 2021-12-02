@@ -255,12 +255,37 @@ public class EventTest {
 
     @Test
     @DisplayName("Testing the function to get a user from an event, valid argument, user not in queue")
-    public void testGetUserFromEvent(){
+    public void testGetUserFromEventNull(){
         long millis = System.currentTimeMillis();
         Date creationDate = new Date((long) (millis * 0.98));
         Date startingDate = new Date(millis);
         Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
         User user = new User("Jean");
         Assertions.assertNull(event.getUserFromEvent(user.getUUID()));
+    }
+
+    // testing event description setter(valid, invalid(too long))
+    @Test
+    @DisplayName("Testing the setter for an event's description, valid argument")
+    public void testSetDescription(){
+        Event event = new Event("Event 1");
+        String description = "this is an event";
+        event.setDescription(description);
+        Assertions.assertEquals(event.getDescription(), description);
+    }
+
+    @Test
+    @DisplayName("Testing the setter for an event's description, valid argument")
+    public void testSetDescriptionIllegalArgumentException(){
+        Event event = new Event("Event 1");
+        String description = "this is an event this is an event this is an event this is an event this is an event" +
+                " this is an event this is an event this is an event this is an event this is an event this is an event" +
+                " this is an event this is an event this is an event this is an event this is an event this is an event" +
+                " this is an event this is an event this is an event this is an event this is an event this is an event" +
+                " this is an event this is an event this is an event this is an event this is an event this is an event" +
+                " this is an event this is an event this is an event this is an event this is an event this is an event" +
+                " this is an event this is an event this is an event this is an event this is an event this is an event";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                event.setDescription(description));
     }
 }
