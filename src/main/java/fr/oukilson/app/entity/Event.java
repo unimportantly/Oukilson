@@ -109,7 +109,7 @@ public class Event {
 	 */
 	public User removeUserInEventWaitingQueue(UUID uuid) {
 		User result = this.waitingUsers.remove(uuid);
-	//	if (result==null) result = User.USER_NULL;
+		if (result==null) result = User.USER_NULL;
 		return result;
 	}
 	
@@ -120,7 +120,7 @@ public class Event {
 	 */
 	public User getUserFromEventWaitingQueue(UUID uuid) {
 		User result = this.waitingUsers.get(uuid);
-	//	if (result==null) result = User.USER_NULL;
+		if (result==null) result = User.USER_NULL;
 		return result;
 	}
 	
@@ -151,7 +151,7 @@ public class Event {
 	 */
 	public User removeUserInEvent(UUID uuid) {
 		User result = this.registeredUsers.remove(uuid);
-	//	if (result==null) result = User.USER_NULL;
+		if (result==null) result = User.USER_NULL;
 		return result;
 	}
 	
@@ -162,7 +162,7 @@ public class Event {
 	 */
 	public User getUserFromEvent(UUID uuid) {
 		User result = this.registeredUsers.get(uuid);
-	//	if (result==null) result = User.USER_NULL;
+		if (result==null) result = User.USER_NULL;
 		return result;
 	}
 

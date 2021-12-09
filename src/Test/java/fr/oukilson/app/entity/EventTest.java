@@ -217,17 +217,17 @@ public class EventTest {
     }
 
     // testing function to remove a user from an event(valid(user removed), invalid(user not in queue))
-//    @Test
-//    @DisplayName("Testing the function to remove a user from an event, valid argument, user removed")
-//    public void testRemoveUserInEvent(){
-//        long millis = System.currentTimeMillis();
-//        Date creationDate = new Date((long) (millis * 0.98));
-//        Date startingDate = new Date(millis);
-//        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
-//        User user = new User("Jean");
-//        event.addUserInEvent(user);
-//        Assertions.assertTrue(event.removeUserInEvent(user.getUUID()));
-//    }
+    @Test
+    @DisplayName("Testing the function to remove a user from an event, valid argument, user removed")
+    public void testRemoveUserInEvent(){
+        long millis = System.currentTimeMillis();
+        Date creationDate = new Date((long) (millis * 0.98));
+        Date startingDate = new Date(millis);
+        Event event = new Event("Event 1", creationDate, startingDate, 2, 5, false);
+        User user = new User("Jean");
+        event.addUserInEvent(user);
+        Assertions.assertTrue(event.removeUserInEvent(user.getUUID()));
+    }
 
     @Test
     @DisplayName("Testing the function to remove a user from an event, valid argument, user not in queue")

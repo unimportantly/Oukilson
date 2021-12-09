@@ -7,11 +7,6 @@ import java.util.regex.Pattern;
 public class Tools {
 
 
-/*
-TODO unify all regex to compare to input(get a regex for the email(incl length & all) & another one for other strings
-while putting the compile/matcher/find in another function
- */
-
     /**
      * compares a string of characters to a given regex and returns matching status
      * @param regex string of characters that define the accepted or *not* accepted list of chars
@@ -24,8 +19,12 @@ while putting the compile/matcher/find in another function
     }
 
 
-
-
+    /**
+     * function checks if a user is already on a list by using its UUID
+     * @param user user to check
+     * @param map list of users to verify
+     * @return true if user is on list, false otherwise
+     */
     public static boolean userOnList(User user, HashMap map){
         boolean isOnList = false;
         if(map.containsKey(user.getUUID())){
@@ -34,6 +33,12 @@ while putting the compile/matcher/find in another function
         return isOnList;
     }
 
+    /**
+     * function checks if game is already on a list by using its UUID
+     * @param game game to check
+     * @param map list of games to verify
+     * @return true if game is on list, false otherwise
+     */
     public static boolean gameOnList(Game game, HashMap map){
         boolean isOnList = false;
         if(map.containsKey(game.getUUID())){
