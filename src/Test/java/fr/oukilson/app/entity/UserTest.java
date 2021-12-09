@@ -205,6 +205,8 @@ public class UserTest {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 mainUser.removeGameFromLikedGameList(game));
     }
+
+    //Testing regex => setNickname, setFirstname, setLastname, setEmail
 }
 
 
