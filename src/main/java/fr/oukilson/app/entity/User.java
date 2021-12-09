@@ -93,7 +93,7 @@ public class User {
      * @throws IllegalArgumentException if the user is already on the friend or denied list
      */
     public void addUserToFriendList(User user) throws IllegalArgumentException{
-        if(!Tools.userOnList(user, this.getFriendList())) {
+        if(!Tools.userOnList(user, this.getFriendList()) && !Tools.userOnList(user, this.getDeniedList())) {
             this.getFriendList().put(user.getUUID(), user);
         }
         else {
@@ -108,7 +108,7 @@ public class User {
      * @throws IllegalArgumentException if the user is already on the friend or denied list
      */
     public void addUserToDeniedList(User user) throws IllegalArgumentException{
-        if(!Tools.userOnList(user, this.getDeniedList())) {
+        if(!Tools.userOnList(user, this.getDeniedList()) && !Tools.userOnList(user, this.getFriendList())) {
             this.getDeniedList().put(user.getUUID(), user);
         }
         else {
@@ -154,7 +154,7 @@ public class User {
      */
     public void removeUserFromFriendList(User user) throws IllegalArgumentException{
         if(Tools.userOnList(user, this.getFriendList())) {
-            this.getFriendList().remove(user);
+            this.getFriendList().remove(user.getUUID());
         }
         else {
             throw new IllegalArgumentException("user is not on list.");
@@ -169,7 +169,7 @@ public class User {
      */
     public void removeUserFromDeniedList(User user) throws IllegalArgumentException{
         if(Tools.userOnList(user, this.getDeniedList())) {
-            this.getDeniedList().remove(user);
+            this.getDeniedList().remove(user.getUUID());
         }
         else {
             throw new IllegalArgumentException("user is not on list.");
@@ -184,7 +184,7 @@ public class User {
      */
     public void removeGameFromOwnedGameList(Game game) throws IllegalArgumentException{
         if(Tools.gameOnList(game, this.getUserGameList())) {
-            this.getUserGameList().remove(game);
+            this.getUserGameList().remove(game.getUUID());
         }
         else {
             throw new IllegalArgumentException("game is not on list.");
@@ -199,7 +199,7 @@ public class User {
      */
     public void removeGameFromLikedGameList(Game game) throws IllegalArgumentException{
         if(Tools.gameOnList(game, this.getUserLikeList())) {
-            this.getUserLikeList().remove(game);
+            this.getUserLikeList().remove(game.getUUID());
         }
         else {
             throw new IllegalArgumentException("game is not on list.");
