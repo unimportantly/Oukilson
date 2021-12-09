@@ -206,7 +206,151 @@ public class UserTest {
                 mainUser.removeGameFromLikedGameList(game));
     }
 
-    //Testing regex => setNickname, setFirstname, setLastname, setEmail
+    // Testing regex => setNickname, setFirstname, setLastname, setEmail
+    // => test min/max length, valid/invalid input
+    @Test
+    @DisplayName("Test of nickname setter, valid argument")
+    public void testSetNicknameEquals(){
+    User user = new User();
+    user.setNickname("Jean");
+    String string = "Jean";
+    Assertions.assertEquals(user.getNickname(), string);
+    }
+
+    @Test
+    @DisplayName("Test of nickname setter, invalid input")
+    public void testSetNicknameIllegalArgumentExceptionInvalid(){
+        User user = new User();
+        String string = "!:zefgojo;   ";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setNickname(string));
+    }
+
+    @Test
+    @DisplayName("Test of nickname setter, too short argument")
+    public void testSetNicknameIllegalArgumentExceptionTooShort(){
+        User user = new User();
+        String string = "Je";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setNickname(string));
+    }
+
+    @Test
+    @DisplayName("Test of nickname setter, too long argument")
+    public void testSetNicknameIllegalArgumentExceptionTooLong(){
+        User user = new User();
+        String string = "Jeazdefgtrdyujhogkozaijdfeoihlshgziomjzqoighqzolefhlqzihejlfijqzleijflzqiejf";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setNickname(string));
+    }
+
+    @Test
+    @DisplayName("Test of firstname setter, valid argument")
+    public void testSetFirstnameEquals(){
+        User user = new User("Jean");
+        user.setFirstName("Jean");
+        String string = "Jean";
+        Assertions.assertEquals(user.getFirstName(), string);
+    }
+
+    @Test
+    @DisplayName("Test of firstname setter, invalid input")
+    public void testSetFirstnameIllegalArgumentExceptionInvalid(){
+        User user = new User("Jean");
+        String string = "13578adzdg";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setFirstName(string));
+    }
+
+    @Test
+    @DisplayName("Test of firstname setter, too short argument")
+    public void testSetfirstnameIllegalArgumentExceptionTooShort(){
+        User user = new User("Jean");
+        String string = "J";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setFirstName(string));
+    }
+
+    @Test
+    @DisplayName("Test of firstname setter, too long argument")
+    public void testSetfirstnameIllegalArgumentExceptionTooLong(){
+        User user = new User("Jean");
+        String string = "Jeazdefgtrdyujhogkozaijdfeoihlshgziomjzqoighqzolefhlqzihejlfijqzleijflzqiejf";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setFirstName(string));
+    }
+
+    @Test
+    @DisplayName("Test of lastname setter, valid argument")
+    public void testSetLastnameEquals(){
+        User user = new User("Jean");
+        user.setLastName("Jean");
+        String string = "Jean";
+        Assertions.assertEquals(user.getLastName(), string);
+    }
+
+    @Test
+    @DisplayName("Test of lastname setter, invalid input")
+    public void testSetLastnameIllegalArgumentExceptionInvalid(){
+        User user = new User("Jean");
+        String string = "13578adzdg";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setLastName(string));
+    }
+
+    @Test
+    @DisplayName("Test of lastname setter, too short argument")
+    public void testSetLastnameIllegalArgumentExceptionTooShort(){
+        User user = new User("Jean");
+        String string = "J";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setLastName(string));
+    }
+
+    @Test
+    @DisplayName("Test of lastname setter, too long argument")
+    public void testSetLastnameIllegalArgumentExceptionTooLong(){
+        User user = new User("Jean");
+        String string = "Jeazdefgtrdyujhogkozaijdfeoihlshgziomjzqoighqzolefhlqzihejlfijqzleijflzqiejf";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setLastName(string));
+    }
+
+    @Test
+    @DisplayName("Test of the email setter regex, valid argument")
+    public void testEmailSetterNoException(){
+        User user = new User("kean");
+        String email = "jean@email.com";
+        user.setEmail(email);
+        Assertions.assertEquals(user.getEmail(), email);
+    }
+
+    @Test
+    @DisplayName("Test of the email setter regex, invalid argument : too short")
+    public void testEmailSetterIllegalArgumentExceptionShort() {
+        User user = new User("kean");
+        String email = "n@el.com";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setEmail(email));
+    }
+
+    @Test
+    @DisplayName("Test of the email setter regex, invalid argument : too long")
+    public void testEmailSetterIllegalArgumentExceptionLong() {
+        User user = new User("kean");
+        String email = "azdazfzefgslrkgoerktglisjerlgjizlmerjglesjrgergsergserthjtyjsrgsergsgsergn@eergerhl.com";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setEmail(email));
+    }
+
+    @Test
+    @DisplayName("Test of the email setter regex, invalid argument")
+    public void testEmailSetterIllegalArgumentExceptionIncorrect() {
+        User user = new User("kean");
+        String email = "nazfafg@elazd.c";
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                user.setEmail(email));
+    }
 }
 
 

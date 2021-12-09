@@ -15,7 +15,7 @@ public class User {
     private List<Token> token;
     /*
     if needs to be ordered we use a list because it has methods(?) to get first & last
-    so it's good if we also just need to get a FIFO(PAPS)
+    so it's good if we also just need to get a FIFO(PEPS)
     otherwise using a hashmap is better because it's faster (don't need to run through the
     entire list and then compare with the object, just compare with the key)
      */
@@ -47,10 +47,10 @@ public class User {
     public User(String nickname,String email) throws IllegalArgumentException{
         this.setNickname(nickname);
         this.setEmail(email);
-        this.friendList = new HashMap<UUID, User>();
-        this.deniedList = new HashMap<UUID, User>();
-        this.userGameList = new HashMap<UUID, Game>();
-        this.userLikeList = new HashMap<UUID, Game>();
+        this.friendList = new HashMap<>();
+        this.deniedList = new HashMap<>();
+        this.userGameList = new HashMap<>();
+        this.userLikeList = new HashMap<>();
     }
 
     /**
@@ -63,10 +63,10 @@ public class User {
     public User(String nickname, String email, String firstName) throws IllegalArgumentException{
         this(nickname, email);
         this.setFirstName(firstName);
-        this.friendList = new HashMap<UUID, User>();
-        this.deniedList = new HashMap<UUID, User>();
-        this.userGameList = new HashMap<UUID, Game>();
-        this.userLikeList = new HashMap<UUID, Game>();
+        this.friendList = new HashMap<>();
+        this.deniedList = new HashMap<>();
+        this.userGameList = new HashMap<>();
+        this.userLikeList = new HashMap<>();
     }
 
     /**
@@ -80,10 +80,10 @@ public class User {
     public User(String nickname, String email, String firstName, String lastName) throws IllegalArgumentException{
         this(nickname, email, firstName);
         this.setLastName(lastName);
-        this.friendList = new HashMap<UUID, User>();
-        this.deniedList = new HashMap<UUID, User>();
-        this.userGameList = new HashMap<UUID, Game>();
-        this.userLikeList = new HashMap<UUID, Game>();
+        this.friendList = new HashMap<>();
+        this.deniedList = new HashMap<>();
+        this.userGameList = new HashMap<>();
+        this.userLikeList = new HashMap<>();
     }
 
     //methods
@@ -256,7 +256,9 @@ public class User {
      * @param email user's new email
      */
     public void setEmail(String email) throws IllegalArgumentException{
-        String regex = "\\b[\\w.!#$%&’*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b{10,45}$";
+        String regex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,}){10,45}$";
+        //"\\b[\\w.!#$%&’*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)*\\b{10,45}$";
         if (!Tools.checkRegex(regex, email)) {
             throw new IllegalArgumentException("email must be valid.");
         }
@@ -375,4 +377,19 @@ public class User {
         this.userLikeList = userLikeList;
     }
 
+    public Blob getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Blob icon) {
+        this.icon = icon;
+    }
+
+    public List<Token> getToken() {
+        return token;
+    }
+
+    public void setToken(List<Token> token) {
+        this.token = token;
+    }
 }
