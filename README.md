@@ -10,6 +10,9 @@ Features : Profil utilisateur, création et recherche d'événements, inscriptio
 
 # Auteurs
 Mickaël Lebon
+
 Didier Dourneau
+
 Clément Cauliez
+
 Olivier Lamarcq
